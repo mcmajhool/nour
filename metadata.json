@@ -1,0 +1,6 @@
+{
+  "name": "Noor Al-Muslim — Muslim Pro & Kotlin Android Project",
+  "description": "تطبيق المسلم الشامل (مواقيت الصلاة، الأذان، المهام اليومية، الأذكار، السبحة، والقبلة) مع توليد وتحميل مشروع أندرويد ستوديو كامل بلغة كوتلن (Kotlin Jetpack Compose) جاهز للرفع على GitHub والتشغيل على المحاكي.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
