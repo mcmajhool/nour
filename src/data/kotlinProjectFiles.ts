@@ -3,7 +3,7 @@ import JSZip from 'jszip';
 export interface KotlinProjectFile {
   path: string;
   fileName: string;
-  language: 'kotlin' | 'gradle' | 'xml' | 'markdown';
+  language: 'kotlin' | 'java' | 'gradle' | 'xml' | 'markdown';
   descriptionAr: string;
   content: string;
 }
@@ -948,14 +948,139 @@ fun NoorAlMuslimTheme(content: @Composable () -> Unit) {
 `,
   },
   {
+    path: 'app/src/main/java/com/nooralmuslim/app/util/PrayerTimeCalculator.java',
+    fileName: 'PrayerTimeCalculator.java',
+    language: 'java',
+    descriptionAr: 'كلاس بلغة Java لحساب زاوية القبلة والمسافة إلى الكعبة المشرفة (متوافق مع Kotlin في Android Studio).',
+    content: `package com.nooralmuslim.app.util;
+
+/**
+ * حاسبة فلكية بلغة Java لحساب زاوية القبلة والمسافة إلى الكعبة المشرفة
+ * متوافقة بالكامل مع استدعاءات Kotlin داخل مشروع Android Studio.
+ */
+public final class PrayerTimeCalculator {
+
+    private static final double KAABA_LAT = 21.4225;
+    private static final double KAABA_LNG = 39.8262;
+
+    private PrayerTimeCalculator() {
+        // Utility class
+    }
+
+    public static double calculateQiblaBearing(double userLat, double userLng) {
+        double phi1 = Math.toRadians(userLat);
+        double phi2 = Math.toRadians(KAABA_LAT);
+        double deltaLng = Math.toRadians(KAABA_LNG - userLng);
+
+        double y = Math.sin(deltaLng) * Math.cos(phi2);
+        double x = Math.cos(phi1) * Math.sin(phi2)
+                - Math.sin(phi1) * Math.cos(phi2) * Math.cos(deltaLng);
+
+        double bearing = Math.toDegrees(Math.atan2(y, x));
+        return (bearing + 360.0) % 360.0;
+    }
+
+    public static int calculateDistanceToMakkahKm(double userLat, double userLng) {
+        double earthRadiusKm = 6371.0;
+        double dLat = Math.toRadians(KAABA_LAT - userLat);
+        double dLng = Math.toRadians(KAABA_LNG - userLng);
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(userLat))
+                * Math.cos(Math.toRadians(KAABA_LAT))
+                * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return (int) Math.round(earthRadiusKm * c);
+    }
+}
+`,
+  },
+  {
+    path: 'app/src/main/res/layout/activity_main.xml',
+    fileName: 'activity_main.xml',
+    language: 'xml',
+    descriptionAr: 'ملف واجهة XML التقليدية (Android XML Layout) في مجلد res/layout إلى جانب واجهات Jetpack Compose.',
+    content: `<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layoutDirection="rtl"
+    android:background="@color/parchment_bg"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/emerald_dark"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tv_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="مكة المكرمة · تقويم أم القرى"
+            android:textColor="@color/emerald_light"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_next_prayer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="صلاة العصر - 15:29"
+            android:textColor="@color/surface_white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_play_adhan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="تشغيل صوت الأذان" />
+    </LinearLayout>
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/compose_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
+`,
+  },
+  {
+    path: 'app/src/main/res/values/colors.xml',
+    fileName: 'colors.xml',
+    language: 'xml',
+    descriptionAr: 'ملف ألوان الهوية الزمردية والذهبية (colors.xml) داخل مجلد res/values.',
+    content: `<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="emerald_primary">#065F46</color>
+    <color name="emerald_dark">#064E3B</color>
+    <color name="emerald_light">#D1FAE5</color>
+    <color name="gold_accent">#D97706</color>
+    <color name="parchment_bg">#F8F7F4</color>
+    <color name="surface_white">#FFFFFF</color>
+</resources>
+`,
+  },
+  {
     path: 'app/src/main/res/values/strings.xml',
     fileName: 'strings.xml',
     language: 'xml',
     descriptionAr: 'ملف النصوص والموارد (strings.xml) داخل مجلد res/values الخاص بالتطبيق.',
     content: `<resources>
     <string name="app_name">نور المسلم - Muslim Pro</string>
-    <string name="Notification_channel_name">تنبيهات الأذان ومواقيت الصلاة</string>
+    <string name="notification_channel_name">تنبيهات الأذان ومواقيت الصلاة</string>
     <string name="qibla_title">بوصلة اتجاه القبلة</string>
+    <string name="tasbih_title">المسبحة الإلكترونية</string>
+    <string name="adhkar_title">حصن المسلم والأذكار</string>
+    <string name="tasks_title">المهام الإيمانية اليومية</string>
 </resources>
 `,
   },

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="emerald_primary">#065F46</color>
+    <color name="emerald_dark">#064E3B</color>
+    <color name="emerald_light">#D1FAE5</color>
+    <color name="gold_accent">#D97706</color>
+    <color name="parchment_bg">#F8F7F4</color>
+    <color name="surface_white">#FFFFFF</color>
+</resources>

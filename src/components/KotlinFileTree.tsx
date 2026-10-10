@@ -179,6 +179,8 @@ export const KotlinFileTree: React.FC<KotlinFileTreeProps> = ({
     switch (file.language) {
       case 'kotlin':
         return <FileCode className="w-4 h-4 text-emerald-700 shrink-0" />;
+      case 'java':
+        return <FileCode className="w-4 h-4 text-orange-600 shrink-0" />;
       case 'gradle':
         return <Settings className="w-4 h-4 text-amber-700 shrink-0" />;
       case 'xml':

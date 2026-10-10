@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">نور المسلم - Muslim Pro</string>
+    <string name="notification_channel_name">تنبيهات الأذان ومواقيت الصلاة</string>
+    <string name="qibla_title">بوصلة اتجاه القبلة</string>
+    <string name="tasbih_title">المسبحة الإلكترونية</string>
+    <string name="adhkar_title">حصن المسلم والأذكار</string>
+    <string name="tasks_title">المهام الإيمانية اليومية</string>
+</resources>
